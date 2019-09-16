@@ -1,0 +1,45 @@
+{
+  "name": "z-swagger-to-apidoc",
+  "version": "0.0.1",
+  "description": "swagger文档转换成apidoc文档插件",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "keywords": [
+    "apidoc",
+    "swagger",
+    "conversion",
+    "convert"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tec8297729/z-swagger-to-apidoc"
+  },
+  "author": "tec8297729",
+  "license": "ISC",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "start": "cross-env NODE_ENV=development tsc-watch -p tsconfig.build.json --onSuccess \"node ./dist/main.js\"",
+    "apidoc": "zapidoc -u localhost:19005/api-doc-json --output ./ddd/",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "require": {},
+  "devDependencies": {
+    "@types/node": "^12.7.5",
+    "cross-env": "^5.2.1",
+    "rimraf": "^3.0.0",
+    "tsc-watch": "^3.0.1",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "apidoc": "^0.17.7",
+    "commander": "^3.0.1",
+    "consola": "^2.10.1",
+    "node-fetch": "^2.6.0",
+    "shelljs": "^0.8.3"
+  },
+  "peerDependencies": {},
+  "bin": {
+    "zapidoc": "./bin/index.js"
+  }
+}
