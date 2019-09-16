@@ -89,8 +89,9 @@ const transformSwagger = async (document, opts: TransformOptions = {}) => {
 };
 
 interface ExcecShellOpts {
-  docsPath: string;
-  removeDocs: boolean;
+  docsPath?: string;
+  outputPath?: string;
+  removeDocs?: boolean;
 }
 
 const excecShell = (shell: string, opts?: ExcecShellOpts) => {
@@ -103,7 +104,8 @@ const excecShell = (shell: string, opts?: ExcecShellOpts) => {
       console.log(stdout);
       // 移除注释文档
       if (opts.removeDocs) {
-        shelljs.rm('-rf', `${opts.docsPath}`);
+        const { outputPath, docsPath } = opts;
+        shelljs.rm('-rf', `${docsPath}`);
       }
     }
   });

@@ -7,8 +7,7 @@
 
 安装插件包及生成文档的依赖包**apidoc**：
 ```
-npm install apidoc --save-dev
-npm install z-swagger-to-apidoc --save-dev
+npm i z-swagger-to-apidoc --save-dev
 ```
 
 ------
@@ -22,13 +21,13 @@ npm install z-swagger-to-apidoc --save-dev
   "name": "z-swagger-to-apidoc",
   "license": "MIT",
   "scripts": {
-        "build:doc": "zapidoc -u http://localhost:19005/api-doc-json -rd true",
+    "build:doc": "zapidoc -u http://localhost:19005/api-doc-json -rd false",
   }
 }
 ```
 
 输入**npm run build:doc**命令后，开始生成apidoc文档，会访问指定的url链接获取json格式的swagger文档，并且生成apidoc的注释版本文档(/docs目录内)及网页版本的文档(/apidoc目录内)。
--rd true会在生成完网页版本的apidoc文档后，自动删除注释版本文档文件。
+-rd false会在生成完网页版本的apidoc文档后，关闭自动删除注释版本文档功能。
 
 
 ### 2. 通用参数说明

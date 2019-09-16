@@ -1,6 +1,6 @@
 {
   "name": "z-swagger-to-apidoc",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "swagger文档转换成apidoc文档插件",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -10,6 +10,7 @@
     "conversion",
     "convert"
   ],
+  "homepage": "https://github.com/tec8297729/z-swagger-to-apidoc",
   "repository": {
     "type": "git",
     "url": "https://github.com/tec8297729/z-swagger-to-apidoc"

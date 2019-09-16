@@ -33,9 +33,11 @@ const initApiDoc = async () => {
     const newUrl = /^((https|http|ftp)?:\/\/).*/.test(url) ? url : `http://${url}`;
     const newDocs = docs || './docs';
     const resJson = await fetch(newUrl).then(res => res.json());
+    const newOutPath = output || "./apidoc"; // 输出路径
     await main.transformSwagger(resJson);
-    await main.excecShell(`apidoc -i ${newDocs} -o ${output || "./apidoc"}`, {
+    await main.excecShell(`apidoc -i ${newDocs} -o ${newOutPath}`, {
       docsPath: newDocs,
+      outputPath: newOutPath,
       removeDocs: removeDocs || true, // 清除注释文档
     });
     return;
