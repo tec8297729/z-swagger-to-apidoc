@@ -12,14 +12,6 @@ stages:
 
 jobs:
   include:
-    - stage: test
-      script:
-        - node --version
-        - npm --version
-        - echo "Testing Started ..."
-        - npm test
-        - echo "Testing Finished."
-
     - stage: deploy
       script:
         - echo "NPM Deploying Started ..."
@@ -34,5 +26,4 @@ jobs:
         skip_cleanup: true
         # 触发deploy命令条件
         on:
-          tags: true # 有tags新标签的时候
           branch: master # 指定监听分支号
