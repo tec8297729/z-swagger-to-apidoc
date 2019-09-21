@@ -1,11 +1,12 @@
 {
   "name": "z-swagger-to-apidoc",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "swagger文档转换成apidoc文档插件",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "keywords": [
     "apidoc",
+    "nestjs",
     "swagger",
     "conversion",
     "convert"
@@ -35,7 +36,6 @@
   "dependencies": {
     "apidoc": "^0.17.7",
     "commander": "^3.0.1",
-    "consola": "^2.10.1",
     "node-fetch": "^2.6.0",
     "shelljs": "^0.8.3"
   },

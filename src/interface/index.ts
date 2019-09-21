@@ -1,4 +1,4 @@
-import TransformOptions from './transformOptions.interface';
+import TransformOptions from './TransformOptions.interface';
 import Parameters from './parameters.interface';
 
 export {
