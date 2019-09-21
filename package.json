@@ -19,7 +19,8 @@
   "author": "tec8297729",
   "license": "ISC",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "tsc",
+    "build:dev": "rimraf dist && tsc",
     "start": "cross-env NODE_ENV=development tsc-watch -p tsconfig.build.json --onSuccess \"node ./dist/main.js\"",
     "apidoc": "zapidoc -u localhost:19005/api-doc-json --output ./ddd/",
     "lint": "tslint -p tsconfig.json -c tslint.json",
