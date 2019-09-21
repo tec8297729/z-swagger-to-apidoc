@@ -41,7 +41,7 @@ class Processing {
   // 生成jwt信息
   addJwt = (securityArr = [], opts) => {
     let newText = '';
-    const jwtDes = opts.jwtDes || '帐号登陆返回授权的jwt信息';
+    const jwtDes = opts.jwtDes || '登录、注册接口返回的jwt';
     const jwtName = opts.jwt || opts.bearer.name || 'jwt';
     // 带有指定bearer字段才添加jwt信息
     const addFlag = securityArr.some(item => item.bearer);
@@ -94,6 +94,10 @@ class Processing {
       } else {
         // 无映射情况下、无多字段
         newText += `* @apiSuccess (Success ${item}) {${type || 'string'}} ${name || 'success'} ${description || emptyApiText}\n`;
+        // let res = `
+        // * @apiSuccess {Boolean} succeed 成功标识
+        // * @apiSuccess {String} errorCode 结果码
+        // * @apiSuccess {String} errorMessage 消息说明`;
       }
     });
     return newText;

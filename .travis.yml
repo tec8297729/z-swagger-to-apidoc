@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+  - '12'
+  - '10'
+install:
+  - npm install
+os:
+  - linux
+
+stages:
+  - name: deploy # 调用指定deploy命令
+
+jobs:
+  include:
+    - stage: deploy
+      script:
+        - echo "NPM Deploying Started ..."
+        - npm version
+        - npm run build
+        - echo "NPM Building Finished."
+
+      deploy:
+        provider: npm
+        email: tec8297729@hotmail.com
+        api_key: '$NPM_TOKEN' # 使用变量读取
+        skip_cleanup: true
+        # 触发deploy命令条件
+        on:
+          branch: master # 指定监听分支号
