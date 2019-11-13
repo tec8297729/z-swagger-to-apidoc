@@ -8,5 +8,5 @@ interface TransformOptions {
 }
 
 export {
-  TransformOptions
-}
+  TransformOptions,
+};

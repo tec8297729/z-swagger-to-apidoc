@@ -1,6 +1,6 @@
 {
   "name": "z-swagger-to-apidoc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "swagger文档转换成apidoc文档插件",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -8,6 +8,7 @@
     "apidoc",
     "nestjs",
     "swagger",
+    "文档转换",
     "conversion",
     "convert"
   ],
@@ -24,7 +25,7 @@
     "start": "cross-env NODE_ENV=development tsc-watch -p tsconfig.build.json --onSuccess \"node ./dist/main.js\"",
     "apidoc": "zapidoc -u localhost:19005/api-doc-json --output ./ddd/",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
   },
   "require": {},
   "devDependencies": {
@@ -38,7 +39,8 @@
     "apidoc": "^0.17.7",
     "commander": "^3.0.1",
     "node-fetch": "^2.6.0",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "tslint": "^5.20.0"
   },
   "peerDependencies": {},
   "bin": {
