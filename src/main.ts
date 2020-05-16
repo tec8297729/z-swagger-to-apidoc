@@ -98,7 +98,12 @@ interface ExcecShellOpts {
   removeDocs?: boolean;
 }
 
-const excecShell = (shell: string, opts?: ExcecShellOpts) => {
+const excecShell = (
+  shell: string,
+  opts: ExcecShellOpts = {
+    removeDocs: true,
+  }
+) => {
   exec(`${shell}`, (err, stdout, stderr) => {
     flag = true;
     if (err) {
@@ -107,7 +112,7 @@ const excecShell = (shell: string, opts?: ExcecShellOpts) => {
     } else {
       // console.log(stdout);
       // 移除注释文档
-      if (opts.removeDocs) {
+      if (opts!.removeDocs) {
         const { outputPath, docsPath } = opts;
         fs.removeSync(docsPath); // 移除目录
       }
