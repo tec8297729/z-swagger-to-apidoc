@@ -1,6 +1,6 @@
 {
   "name": "z-swagger-to-apidoc",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "swagger文档转换成apidoc文档插件",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
