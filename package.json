@@ -21,7 +21,7 @@
   "license": "ISC",
   "scripts": {
     "build": "tsc",
-    "build:dev": "rimraf dist && tsc",
+    "dev": "tsc -w",
     "start": "cross-env NODE_ENV=development tsc-watch -p tsconfig.build.json --onSuccess \"node ./dist/main.js\"",
     "apidoc": "zapidoc -u localhost:19005/api-doc-json --output ./ddd/",
     "lint": "tslint -p tsconfig.json -c tslint.json",
@@ -30,7 +30,8 @@
   "require": {},
   "devDependencies": {
     "@types/fs-extra": "^9.0.0",
-    "@types/node": "^12.7.5",
+    "@types/node": "^12.12.39",
+    "@types/shelljs": "^0.8.8",
     "cross-env": "^5.2.1",
     "rimraf": "^3.0.0",
     "tsc-watch": "^3.0.1",
@@ -41,7 +42,8 @@
     "apidoc": "^0.22.1",
     "commander": "^5.1.0",
     "fs-extra": "^9.0.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "shelljs": "^0.8.4"
   },
   "peerDependencies": {},
   "bin": {

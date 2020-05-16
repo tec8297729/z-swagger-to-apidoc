@@ -1,8 +1,11 @@
 import { exec } from 'child_process';
+import * as path from 'path';
 import Processing from './processing';
 import { TransformOptions } from './interface';
 // const packageData = require('../package.json');
 import * as fs from 'fs-extra';
+import * as shelljs from 'shelljs';
+import { TEMP_DIR } from './constant';
 
 let flag = true;
 const transformSwagger = async (
@@ -23,13 +26,14 @@ const transformSwagger = async (
   // 默认配置参数
   const defaultOpts = {
     ...opts,
-    docsPath: opts!.docsPath || '/docs',
+    docsPath: opts!.docsPath || TEMP_DIR,
     apidocPath: opts!.apidocPath || '/apidoc',
   };
   const pro = new Processing(defaultOpts, definitions);
   const rootDir = process.cwd(); // 项目根路径
   const rootDirNodeModules = `${rootDir}`;
-  const docsPath = `${rootDirNodeModules}${defaultOpts.docsPath}`; // 生成文档位置
+  // 生成文档位置
+  const docsPath = path.join(rootDirNodeModules, defaultOpts.docsPath);
   const info = pro.regVersion(document.info);
   // 创建文件夹
   if (!fs.existsSync(docsPath)) {
@@ -77,9 +81,7 @@ const transformSwagger = async (
     // 生成apidoc文档文件
     if (cuttingText && cuttingText !== '\n') {
       fs.writeFile(`${docsPath}/${index}.js`, cuttingText, 'utf-8', (err) => {
-        if (err) {
-          return err;
-        }
+        if (err) return err;
         // console.log(`更新apidoc.js文档成功`);
       });
     }
@@ -102,6 +104,7 @@ const excecShell = (
   shell: string,
   opts: ExcecShellOpts = {
     removeDocs: true,
+    docsPath: TEMP_DIR,
   }
 ) => {
   exec(`${shell}`, (err, stdout, stderr) => {
@@ -110,11 +113,10 @@ const excecShell = (
       console.log(`error: 未安装apidoc`, err);
       return true;
     } else {
-      // console.log(stdout);
       // 移除注释文档
       if (opts!.removeDocs) {
         const { outputPath, docsPath } = opts;
-        fs.removeSync(docsPath); // 移除目录
+        shelljs.rm('-rf', `${docsPath}`);
       }
     }
   });

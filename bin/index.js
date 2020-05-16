@@ -5,9 +5,12 @@ const fetch = require('node-fetch');
 const package = require('../package.json');
 const main = require('../dist/main').default; // 编译后入口
 // var exec = require('child_process').exec;
+
+const TEMP_DIR = './tempdocs';
+
 const initData = {
-  name: 'generateApidoc'
-}
+  name: 'generateApidoc',
+};
 
 // 定义命令及介绍
 program
@@ -15,7 +18,10 @@ program
   .option('-u, --url <url>', '输入json文档地址，如: http://localhost/name.json')
   .option('-o, --output <output>', 'apidoc文档输出位置，默认当前目录doc下')
   .option('-d, --docs <docs>', '生成注释文档目录')
-  .option('-rd, --removeDocs <removeDocs>', '生成完apidoc文档，是否删除注释版本目录， 传入： -rd true删除')
+  .option(
+    '-rd, --removeDocs <removeDocs>',
+    '生成完apidoc文档，是否删除注释版本目录， 传入： -rd true删除'
+  );
 // .parse(process.argv);
 
 program.on('--help', function () {
@@ -23,17 +29,19 @@ program.on('--help', function () {
   Examples:
     $ ${initData.name} --help 查看帮助命令
     $ ${initData.name} -h 查看帮助-简写
-  `)
+  `);
 });
 program.parse(process.argv);
 
 const initApiDoc = async () => {
   const { output, docs, url, removeDocs } = program.opts();
   if (url) {
-    const newUrl = /^((https|http|ftp)?:\/\/).*/.test(url) ? url : `http://${url}`;
-    const newDocs = docs || './docs';
-    const resJson = await fetch(newUrl).then(res => res.json());
-    const newOutPath = output || "./apidoc"; // 输出路径
+    const newUrl = /^((https|http|ftp)?:\/\/).*/.test(url)
+      ? url
+      : `http://${url}`;
+    const newDocs = docs || TEMP_DIR;
+    const resJson = await fetch(newUrl).then((res) => res.json());
+    const newOutPath = output || './apidoc'; // 输出路径
     await main.transformSwagger(resJson);
     await main.excecShell(`apidoc -i ${newDocs} -o ${newOutPath}`, {
       docsPath: newDocs,
