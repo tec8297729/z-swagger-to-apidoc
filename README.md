@@ -1,16 +1,11 @@
-# 欢迎使用 z-swagger-to-apidoc 文档转换工具
+swagger转换成apidoc文档插件
 
-------
-
-一款精简便捷的转换工具，一键转换生成apidoc文档。
-不限于当前项目内生成文档，可生成所有能访问swagger的json数据都可生成在当前项目内。
-
-安装插件包及生成文档的依赖包**apidoc**：
 ```
 npm i z-swagger-to-apidoc --save-dev
 ```
 
-------
+一款精简便捷的转换工具，一键转换生成apidoc文档。<br>
+不限于当前项目内生成文档，可生成所有能访问swagger的json数据都可生成在当前项目内。<br>
 
 
 ### 1. 制作生成apidoc文档的命令
@@ -46,12 +41,14 @@ npm i z-swagger-to-apidoc --save-dev
 
 
 ## 自动生成apidoc文档方式
-本地调试node写接口即时生成apidoc文档，方便在开发环境以更美观的方式实时查看文档
 
+本地调试node写接口即时生成apidoc文档，方便在开发环境以更美观的方式实时查看文档<br>
 
-###1、在node入口文件加入自动生成代码
-这是使用nestjs案例，入口文件如下：
-```node
+PS：如果项目大建议使用手动生成，自动生成文档相对非常消耗性能。<br>
+
+在node入口文件加入自动生成代码，nestjs框架中使用案例，main文件如下：<br>
+
+```js
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import swaggerToApidoc from 'z-swagger-to-apidoc';
@@ -59,36 +56,26 @@ import axios from 'axios';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-
-  // swagger 文档构建
   if (process.env.NODE_ENV !== 'production') {
-    console.log('生成文档');
-
     const options = new DocumentBuilder()
-      .setTitle('API DOC') // 标题
-      .setDescription('api doc of FE other server') // 描述
-      .setVersion('1.0') // 版本
-      .addBearerAuth('jwt')
+      .setTitle('API DOC')
+      .setDescription('api doc of FE other server')
+      .setVersion('1.0')
       .build();
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('api-doc', app, document);
-    // 以上完成swagger文档生成，官方例子没特别之处
-    
-    
-    // 使用插件自动转换成apidoc，
-    // 方式一：传入swagger文档json格式
-    swaggerToApidoc(document, {
-        apidoc: true,
-        baseUrl: '', // 自定义接口前缀
-        treeLevel: 10,
+
+    // 使用插件自动转换成apidoc
+    // 方式一：传入swagger文档数据
+    swaggerToApidoc.transformSwagger(document, {
+      apidoc: true,
+      baseUrl: '', // 自定义接口前缀
+      treeLevel: 10,
     });
 
     // 方式二：使用请求的方式获取json数据
     axios.get('http://localhost:19005/api-doc-json').then(json => {
-        swaggerToApidoc(json, {
-            apidoc: true, // 自动生成apidoc文档
-        });
+      swaggerToApidoc.transformSwagger(json);
     })
   }
   await app.listen(3000);
@@ -96,10 +83,9 @@ async function bootstrap() {
 bootstrap();
 
 ```
-以上只要是非生产环境，都会在每次更新代码的时候，自动生成swagger文档的时候，自动生成apidoc文档文件。
 
 
-###2、配置参数介绍
+### 配置参数介绍
 
 |   字段    | 必选  |            默认参数            |                       说明                        |
 | :-------: | :---: | :----------------------------: | :-----------------------------------------------: |

@@ -1,12 +1,18 @@
-import * as fs from 'fs';
 import { exec } from 'child_process';
-import * as shelljs from 'shelljs';
 import Processing from './processing';
 import { TransformOptions } from './interface';
 // const packageData = require('../package.json');
+import * as fs from 'fs-extra';
 
 let flag = true;
-const transformSwagger = async (document, opts: TransformOptions = {}) => {
+const transformSwagger = async (
+  document,
+  opts: TransformOptions = {
+    apidoc: true,
+    treeLevel: 5,
+    cutting: 100,
+  }
+) => {
   // console.log('package', packageData.name);
   if (!document) {
     console.warn('error: url地址的json为空，或者不是有一个swagger格式的文档');
@@ -19,9 +25,6 @@ const transformSwagger = async (document, opts: TransformOptions = {}) => {
     ...opts,
     docsPath: opts!.docsPath || '/docs',
     apidocPath: opts!.apidocPath || '/apidoc',
-    apidoc: opts!.apidoc || false,
-    treeLevel: opts!.treeLevel || 5,
-    cutting: opts!.cutting || 100,
   };
   const pro = new Processing(defaultOpts, definitions);
   const rootDir = process.cwd(); // 项目根路径
@@ -40,10 +43,12 @@ const transformSwagger = async (document, opts: TransformOptions = {}) => {
 
   Object.keys(paths).forEach((apiUrlObj: string, index) => {
     const itemApiData = paths[apiUrlObj];
-    Object.keys(itemApiData).forEach(itemKey => {
+    Object.keys(itemApiData).forEach((itemKey) => {
       // 生成apidoc文档
       apiText = `
-        * @api {${itemKey}} ${apiUrlObj} ${itemApiData[itemKey].summary || apiUrlObj}
+        * @api {${itemKey}} ${apiUrlObj} ${
+        itemApiData[itemKey].summary || apiUrlObj
+      }
         * @apiVersion ${info.version}
       `;
 
@@ -57,7 +62,6 @@ const transformSwagger = async (document, opts: TransformOptions = {}) => {
       apiText += pro.addApiParam(itemApiData[itemKey].parameters);
       // 响应参数生成
       apiText += pro.addApiResponse(itemApiData[itemKey].responses);
-
     });
     AllApidocText += textWrap.replace('<-- text -->', apiText);
 
@@ -101,11 +105,11 @@ const excecShell = (shell: string, opts?: ExcecShellOpts) => {
       console.log(`error: 未安装apidoc`, err);
       return true;
     } else {
-      console.log(stdout);
+      // console.log(stdout);
       // 移除注释文档
       if (opts.removeDocs) {
         const { outputPath, docsPath } = opts;
-        shelljs.rm('-rf', `${docsPath}`);
+        fs.removeSync(docsPath); // 移除目录
       }
     }
   });

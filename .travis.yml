@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '12'
+  - "12"
 install:
   - npm install
 os:
@@ -21,7 +21,7 @@ jobs:
       deploy:
         provider: npm
         email: tec8297729@hotmail.com
-        api_key: '$NPM_TOKEN' # 使用变量读取
+        api_key: "$NPM_TOKEN" # 使用变量读取
         skip_cleanup: true
         # 触发deploy命令条件
         on:

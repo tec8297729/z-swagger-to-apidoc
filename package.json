@@ -1,6 +1,6 @@
 {
   "name": "z-swagger-to-apidoc",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "swagger文档转换成apidoc文档插件",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -29,18 +29,19 @@
   },
   "require": {},
   "devDependencies": {
+    "@types/fs-extra": "^9.0.0",
     "@types/node": "^12.7.5",
     "cross-env": "^5.2.1",
     "rimraf": "^3.0.0",
     "tsc-watch": "^3.0.1",
+    "tslint": "^6.1.2",
     "typescript": "^3.6.3"
   },
   "dependencies": {
     "apidoc": "^0.17.7",
     "commander": "^3.0.1",
-    "node-fetch": "^2.6.0",
-    "shelljs": "^0.8.3",
-    "tslint": "^5.20.0"
+    "fs-extra": "^9.0.0",
+    "node-fetch": "^2.6.0"
   },
   "peerDependencies": {},
   "bin": {
