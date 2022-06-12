@@ -41,7 +41,7 @@
   "dependencies": {
     "apidoc": "^0.22.1",
     "commander": "^5.1.0",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^10.0.0",
     "node-fetch": "^2.6.0",
     "shelljs": "^0.8.4"
   },
